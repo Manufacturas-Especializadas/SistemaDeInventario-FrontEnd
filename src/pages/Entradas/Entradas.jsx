@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import { useState } from "react"
 import { DataGrid } from '@mui/x-data-grid';
-import { Box } from "@mui/material";
-import { es } from 'date-fns/locale';
+import { Box, Button } from "@mui/material";
+import CloudDownloadIcon from "@mui/icons-material/CloudDownload";
 
 
 export default function Entradas(){
@@ -10,13 +10,46 @@ export default function Entradas(){
 
     useEffect(() => {
         const fetchEntradas = async () => {
-            const response = await fetch('https://app-mesa-sistemadeinventario-api-prod.azurewebsites.net/api/Entradas/ObtenerEntradas');
+            const response = await fetch('https://localhost:44314/api/Entradas/ObtenerEntradas');
             const data = await response.json();
             console.log("Datos recibidos de la API de entradas:", data);
             setEntradas(data);
         };
         fetchEntradas();
     }, []);
+
+    const handleExport = async () =>{
+        try{
+            const url = "https://localhost:44314/api/Entradas/DescargarExcel";
+
+            const response = await fetch(url, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: null
+            });
+
+            if(!response.ok){
+                throw new Error(`Error: ${response.status}`);
+            }
+
+            const blob = await response.blob();            
+
+            const urlBlob = window.URL.createObjectURL(blob);
+            const link = document.createElement("a");
+            link.href = urlBlob;
+            link.setAttribute("download", "DatosExportadosEntradas.xlsx");
+            document.body.appendChild(link);
+            link.click();
+
+
+            link.remove();
+        }catch (error){
+            console.log("Error al exportar el excel: ", error);
+        }
+        
+    }
 
     const columns = [
         {
@@ -42,7 +75,17 @@ export default function Entradas(){
                 Entradas
             </h1>
 
-            <Box sx={{ height: 400, width: '100%', background: "#fff" }}>
+            <div className="flex justify-end">
+                <Button 
+                    startIcon={<CloudDownloadIcon/>} 
+                    color="secondary"
+                    onClick={ handleExport }
+                >
+                    Descargar información
+                </Button>
+            </div>
+    
+            <Box sx={{ height: 400, width: '100%', background: "#fff", marginTop: 1 }}>
                 <DataGrid
                     rows={ entradas }
                     columns={ columns }
