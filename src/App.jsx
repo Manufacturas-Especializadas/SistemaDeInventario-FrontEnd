@@ -1,8 +1,8 @@
 import { Container } from "@mui/material";
 import { Route, Routes } from "react-router-dom";
 import Navbar from "./components/navbar/Navbar";
-import Entradas from "./pages/Entradas";
-import Salidas from "./pages/Salidas";
+import Entradas from "./pages/Entradas/Entradas";
+import Salidas from "./pages/Salidas/Salidas";
 import StorageIcon from "@mui/icons-material/Storage";
 import Login from "./pages/authentication/Register";
 import Register from "./pages/authentication/Login";
