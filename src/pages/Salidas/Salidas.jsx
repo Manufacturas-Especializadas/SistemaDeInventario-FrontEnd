@@ -8,7 +8,7 @@ export default function Salidas(){
 
     useEffect(() =>{
         const fetchSalidas = async () =>{
-            const response = await fetch('https://localhost:44314/api/Salidas/ObtenerSalidas');
+            const response = await fetch('https://app-mesa-sistemadeinventario-api-prod.azurewebsites.net/api/Salidas/ObtenerSalidas');
             const data = await response.json();
             console.log("Datos recibidos de la API de salidas:", data);
             setSalidas(data);
@@ -18,7 +18,7 @@ export default function Salidas(){
 
     const handleExport = async () => {
         try {
-            const url = "https://localhost:44314/api/Salidas/DescargarExcel";
+            const url = "https://app-mesa-sistemadeinventario-api-prod.azurewebsites.net/api/Salidas/DescargarExcel";
 
             const response = await fetch(url, {
                 method: "POST",
