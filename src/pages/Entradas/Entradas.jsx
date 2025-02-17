@@ -2,21 +2,39 @@ import { useEffect } from "react";
 import { useState } from "react"
 import { DataGrid } from '@mui/x-data-grid';
 import { Box, Button } from "@mui/material";
+import { toast, Toaster } from "sonner";
 import CloudDownloadIcon from "@mui/icons-material/CloudDownload";
-
 
 export default function Entradas(){
     const [entradas, setEntradas] = useState([]);
 
-    useEffect(() => {
-        const fetchEntradas = async () => {
-            const response = await fetch('https://app-mesa-sistemadeinventario-api-prod.azurewebsites.net/api/Entradas/ObtenerEntradas');
-            const data = await response.json();
-            console.log("Datos recibidos de la API de entradas:", data);
-            setEntradas(data);
-        };
-        fetchEntradas();
-    }, []);
+        useEffect(() => {
+            const fetchEntradas = async () => {
+                await toast.promise(
+                    fetch('https://app-mesa-sistemadeinventario-api-prod.azurewebsites.net/api/Entradas/ObtenerEntradas')
+                        .then((response) => {
+                            if (!response.ok) {
+                                throw new Error(`Error ${response.status}: ${response.statusText}`);
+                            }
+                            return response.json();
+                        })
+                        .then((data) => {
+                            console.log("Datos recibidos de la API de entradas:", data);
+                            setEntradas(data);
+                        }),
+                    {
+                        loading: "Cargando los datos...",
+                        success: "Datos cargados correctamente",
+                        error: (error) => {
+                            console.error("Error fetching data:", error);
+                            return `Ocurrió un error al cargar los datos: ${error.message}`;
+                        },
+                    }
+                );
+            };
+
+            fetchEntradas();
+        }, []);
 
     const handleExport = async () =>{
         try{
@@ -74,6 +92,8 @@ export default function Entradas(){
             <h1 className="text-center text-5xl font-bold uppercase mb-2">
                 Entradas
             </h1>
+
+            <Toaster position="top-right" richColors/>
 
             <div className="flex justify-end">
                 <Button 

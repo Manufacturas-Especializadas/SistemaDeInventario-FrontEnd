@@ -1,19 +1,37 @@
 import { Box, Button } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import { useEffect, useState } from "react"
+import { toast, Toaster } from "sonner";
 import CloudDownloadIcon from "@mui/icons-material/CloudDownload";
 
 export default function Salidas(){
     const[salidas, setSalidas] = useState([]);
 
-    useEffect(() =>{
-        const fetchSalidas = async () =>{
-            const response = await fetch('https://app-mesa-sistemadeinventario-api-prod.azurewebsites.net/api/Salidas/ObtenerSalidas');
-            const data = await response.json();
-            console.log("Datos recibidos de la API de salidas:", data);
-            setSalidas(data);
-        }
-        fetchSalidas();
+    useEffect(() => {
+        const fechtSalidas = async () => {
+            await toast.promise(
+                fetch('https://app-mesa-sistemadeinventario-api-prod.azurewebsites.net/api/Salidas/ObtenerSalidas')
+                    .then((response) => {
+                        if(!response.ok){
+                            throw new Error(`Error ${ response.status }: ${ response.statusText }`);
+                        }
+                        return response.json();
+                    })
+                    .then((data) => {
+                        console.log("Datos recibidos de la API de entradas: ", data);
+                        setSalidas(data);
+                    }),
+                {
+                    loading: "Cargando los datos...",
+                    success: "Datos cargados correctamente",
+                    error: (error) => {
+                        console.log("Error fetching data: ", error);
+                        return `Ocurrio un error al cargar los datos: ${ error.message }`
+                    },
+                }
+            );
+        };
+        fechtSalidas();
     }, []);
 
     const handleExport = async () => {
@@ -69,6 +87,8 @@ export default function Salidas(){
             <h1 className="text-center text-5xl uppercase font-bold mb-2">
                 Salidas
             </h1>
+
+            <Toaster position="top-right" richColors/>
 
             <div className="flex justify-end">
                 <Button 
