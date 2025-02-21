@@ -1,11 +1,15 @@
-import { Box, Button } from "@mui/material";
+import { Box, Button, patch } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import { useEffect, useState } from "react"
+import { useNavigate } from "react-router-dom";
 import { toast, Toaster } from "sonner";
 import CloudDownloadIcon from "@mui/icons-material/CloudDownload";
+import StorageIcon from "@mui/icons-material/Storage";
+
 
 export default function Salidas(){
     const[salidas, setSalidas] = useState([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fechtSalidas = async () => {
@@ -64,6 +68,10 @@ export default function Salidas(){
         }
     }
 
+    const handleNavigate = (path) => {
+        navigate(path)
+    }
+
     const columns = [
         {
             field: "numeroDeParte", 
@@ -90,7 +98,23 @@ export default function Salidas(){
 
             <Toaster position="top-right" richColors/>
 
-            <div className="flex justify-end">
+            <div className="flex justify-between mt-10">
+                <Button
+                    startIcon={ <StorageIcon/> }
+                    color="secondary"
+                    onClick={() => handleNavigate("/almacen")}
+                >
+                    Almacen
+                </Button>
+
+                <Button
+                    startIcon={ <StorageIcon/> }
+                    color="secondary"
+                    onClick={() => handleNavigate("/")}
+                >
+                    Entradas
+                </Button>
+
                 <Button 
                     color="secondary" 
                     startIcon={<CloudDownloadIcon/>}
@@ -100,7 +124,7 @@ export default function Salidas(){
                 </Button>
             </div>
 
-            <Box sx={{ height: 400, width: '100%', background: "#fff" }}>
+            <Box sx={{ height: 400, width: '100%', background: "#fff", boxShadow: 5 }}>
                 <DataGrid
                     rows={ salidas }
                     columns={ columns }

@@ -1,11 +1,18 @@
-import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Typography } from "@mui/material";
+import { Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Toaster, toast } from "sonner";
+import StorageIcon from "@mui/icons-material/Storage";
 
 export default function Almacen() {
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(false);
     const [selectedDate, setSelectedDate] = useState("");
+    const navigate = useNavigate();
+
+    const handleNavigate = (path) =>{
+        navigate(path);
+    }
 
     useEffect(() => {
         setLoading(true);
@@ -49,7 +56,27 @@ export default function Almacen() {
 
             <Toaster position="top-right" richColors/>
 
-            <div className="flex justify-between">
+            <div className="flex justify-around mt-10">
+                <Button
+                    startIcon={ <StorageIcon/> }                    
+                    color="secondary"
+                    onClick={() => handleNavigate("/")}
+                >
+                    Entradas
+                </Button>
+
+                <Button
+                    startIcon={ <StorageIcon/> }
+                    color="secondary"
+                    onClick={() => handleNavigate("/salidas")}
+                >
+                    Salidas
+                </Button>
+
+            </div>
+
+
+            <div className="flex justify-start">
                 <TextField
                     variant="filled"
                     type="date"

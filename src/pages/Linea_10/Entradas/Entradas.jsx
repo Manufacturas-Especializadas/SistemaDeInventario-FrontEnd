@@ -1,12 +1,19 @@
 import { useEffect } from "react";
 import { useState } from "react"
+import { useNavigate } from "react-router-dom";
 import { DataGrid } from '@mui/x-data-grid';
 import { Box, Button } from "@mui/material";
 import { toast, Toaster } from "sonner";
 import CloudDownloadIcon from "@mui/icons-material/CloudDownload";
+import StorageIcon from "@mui/icons-material/Storage";
 
 export default function Entradas(){
     const [entradas, setEntradas] = useState([]);
+    const navigate = useNavigate();
+
+    const handleNavigate = (path) => {
+        navigate(path);
+    }
 
         useEffect(() => {
             const fetchEntradas = async () => {
@@ -95,7 +102,24 @@ export default function Entradas(){
 
             <Toaster position="top-right" richColors/>
 
-            <div className="flex justify-end">
+            <div className="flex justify-between mt-10">
+                <Button
+                    startIcon={ <StorageIcon/> }
+                    color="secondary"
+                    onClick={() => handleNavigate("/almacen")}
+                >                    
+                    Almacen
+                </Button>
+
+                <Button
+                    startIcon={ <StorageIcon/> }
+                    color="secondary"
+                    onClick={() => handleNavigate("/salidas")}
+                >
+                    <a href="/salidas"></a>
+                    Salidas
+                </Button>
+
                 <Button 
                     startIcon={<CloudDownloadIcon/>} 
                     color="secondary"
@@ -105,7 +129,7 @@ export default function Entradas(){
                 </Button>
             </div>
     
-            <Box sx={{ height: 400, width: '100%', background: "#fff", marginTop: 1 }}>
+            <Box sx={{ height: 400, width: '100%', background: "#fff", marginTop: 1 , boxShadow: 5}}>
                 <DataGrid
                     rows={ entradas }
                     columns={ columns }
