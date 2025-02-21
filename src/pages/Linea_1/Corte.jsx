@@ -10,7 +10,7 @@ export const Corte = () => {
     useEffect(() => {
         const fetchCorte = async () => {
             await toast.promise(
-                fetch('https://localhost:44314/api/Corte/ObtenerCorte')
+                fetch('https://app-mesa-sistemadeinventario-api-prod.azurewebsites.net/api/Corte/ObtenerCorte')
                 .then((response) => {
                     if(!response.ok){
                         throw new Error(`Error ${response.status}: ${response.statusText}`);
@@ -36,7 +36,7 @@ export const Corte = () => {
 
     const handleExport = async () => {
         try{
-            const url = "https://localhost:44314/api/Corte/DescargarExcel";
+            const url = "https://app-mesa-sistemadeinventario-api-prod.azurewebsites.net/api/Corte/DescargarExcel";
 
             const response = await fetch(url, {
                 method: "POST",
