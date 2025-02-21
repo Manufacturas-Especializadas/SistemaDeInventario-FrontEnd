@@ -8,7 +8,7 @@ import StorageIcon from "@mui/icons-material/Storage";
 import InventoryIcon from '@mui/icons-material/Inventory';
 import Login from "./pages/authentication/Register";
 import Register from "./pages/authentication/Login";
-import { Corte } from "./pages/Linea 1/Corte";
+import { Corte } from "./pages/Linea_1/Corte";
 
 const navArrayLinks =[
     {
