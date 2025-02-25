@@ -67,6 +67,11 @@ export const Corte = () => {
 
     const columns = [
         {
+            field: "numeroDeNomina",
+            headerName: "NÚMERO DE NÓMINA",
+            flex: 1
+        },
+        {
             field: "numeroDeParte",
             headerName: "NÚMERO DE PARTE",
             flex: 1
