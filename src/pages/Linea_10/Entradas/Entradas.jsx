@@ -97,7 +97,7 @@ export default function Entradas(){
     return (
         <>
             <h1 className="text-center text-5xl font-bold uppercase mb-2">
-                Entradas
+                Linea 10 - Entrada
             </h1>
 
             <Toaster position="top-right" richColors/>
