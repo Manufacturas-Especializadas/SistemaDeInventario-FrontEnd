@@ -93,7 +93,7 @@ export default function Salidas(){
     return(
         <>
             <h1 className="text-center text-5xl uppercase font-bold mb-2">
-                Salidas
+                Linea 10 - Salida
             </h1>
 
             <Toaster position="top-right" richColors/>
