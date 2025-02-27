@@ -93,7 +93,7 @@ export const Corte = () => {
             <h1 className="text-center text-5xl 
                 font-bold uppercase"
             >
-                Corte
+                Linea 1 - Corte
             </h1>
 
             <Toaster position="top-right" richColors/>
