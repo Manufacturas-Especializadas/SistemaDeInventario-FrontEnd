@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Toaster, toast } from "sonner";
 import StorageIcon from "@mui/icons-material/Storage";
+import config from "../../../../config";
 
 export default function Almacen() {
     const [data, setData] = useState([]);
@@ -17,7 +18,7 @@ export default function Almacen() {
     useEffect(() => {
         setLoading(true);
 
-        let url = "https://app-mesa-sistemadeinventario-api-prod.azurewebsites.net/api/Entradas/OrdenarPorFecha";
+        let url = `${config.apiUrl}/Entradas/OrdenarPorFecha`;
         if (selectedDate) {
             url += `?fechaFiltro=${selectedDate}`;
         }
