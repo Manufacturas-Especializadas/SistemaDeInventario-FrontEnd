@@ -3,6 +3,7 @@ import { Box, Button } from '@mui/material';
 import { toast, Toaster } from "sonner";
 import { DataGrid } from '@mui/x-data-grid';
 import CloudDownloadIcon from "@mui/icons-material/CloudDownload";
+import config from "../../../config";
 
 export const Corte = () => {
     const[corte, setCorte] = useState([]);
@@ -10,7 +11,7 @@ export const Corte = () => {
     useEffect(() => {
         const fetchCorte = async () => {
             await toast.promise(
-                fetch('https://app-mesa-sistemadeinventario-api-prod.azurewebsites.net/api/Corte/ObtenerCorte')
+                fetch(`${config.apiUrl}/Corte/ObtenerCorte`)
                 .then((response) => {
                     if(!response.ok){
                         throw new Error(`Error ${response.status}: ${response.statusText}`);
@@ -34,9 +35,17 @@ export const Corte = () => {
         fetchCorte()
     }, []);
 
+    const getHour = (hour) => {
+        if(!hour) return "";
+
+        const[hours] = hour.split(":").map(Number);
+
+        return hours < 12 ? "AM" : "PM";
+    }
+
     const handleExport = async () => {
         try{
-            const url = "https://app-mesa-sistemadeinventario-api-prod.azurewebsites.net/api/Corte/DescargarExcel";
+            const url = `${config.apiUrl}/Corte/DescargarExcel`;
 
             const response = await fetch(url, {
                 method: "POST",
@@ -85,6 +94,11 @@ export const Corte = () => {
             field: "fechaDeCorte",
             headerName: "FECHA DE CORTE",
             flex: 1
+        },
+        {
+            field: "horaFormateada",
+            headerName: "HORA",
+            flex: 1,
         }
     ];
 

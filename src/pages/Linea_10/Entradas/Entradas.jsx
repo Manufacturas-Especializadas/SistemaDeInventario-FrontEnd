@@ -6,6 +6,7 @@ import { Box, Button } from "@mui/material";
 import { toast, Toaster } from "sonner";
 import CloudDownloadIcon from "@mui/icons-material/CloudDownload";
 import StorageIcon from "@mui/icons-material/Storage";
+import config from "../../../../config";
 
 export default function Entradas(){
     const [entradas, setEntradas] = useState([]);
@@ -18,7 +19,7 @@ export default function Entradas(){
         useEffect(() => {
             const fetchEntradas = async () => {
                 await toast.promise(
-                    fetch('https://app-mesa-sistemadeinventario-api-prod.azurewebsites.net/api/Entradas/ObtenerEntradas')
+                    fetch(`${config.apiUrl}/Entradas/ObtenerEntradas`)
                         .then((response) => {
                             if (!response.ok) {
                                 throw new Error(`Error ${response.status}: ${response.statusText}`);
@@ -45,7 +46,7 @@ export default function Entradas(){
 
     const handleExport = async () =>{
         try{
-            const url = "https://app-mesa-sistemadeinventario-api-prod.azurewebsites.net/api/Entradas/DescargarExcel";
+            const url = `${config.apiUrl}/Entradas/DescargarExcel`;
 
             const response = await fetch(url, {
                 method: "POST",

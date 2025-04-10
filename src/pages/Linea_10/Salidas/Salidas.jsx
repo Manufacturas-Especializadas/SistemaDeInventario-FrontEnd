@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { toast, Toaster } from "sonner";
 import CloudDownloadIcon from "@mui/icons-material/CloudDownload";
 import StorageIcon from "@mui/icons-material/Storage";
+import config from "../../../../config";
 
 
 export default function Salidas(){
@@ -14,7 +15,7 @@ export default function Salidas(){
     useEffect(() => {
         const fechtSalidas = async () => {
             await toast.promise(
-                fetch('https://app-mesa-sistemadeinventario-api-prod.azurewebsites.net/api/Salidas/ObtenerSalidas')
+                fetch(`${config.apiUrl}/Salidas/ObtenerSalidas`)
                     .then((response) => {
                         if(!response.ok){
                             throw new Error(`Error ${ response.status }: ${ response.statusText }`);
@@ -40,7 +41,7 @@ export default function Salidas(){
 
     const handleExport = async () => {
         try {
-            const url = "https://app-mesa-sistemadeinventario-api-prod.azurewebsites.net/api/Salidas/DescargarExcel";
+            const url = `${config.apiUrl}/Salidas/DescargarExcel`;
 
             const response = await fetch(url, {
                 method: "POST",
