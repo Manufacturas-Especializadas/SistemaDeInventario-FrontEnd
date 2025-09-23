@@ -9,30 +9,30 @@ import Login from "./pages/authentication/Login";
 import Register from "./pages/authentication/Register";
 import { Corte } from "./pages/Linea_1/Corte";
 
-const navArrayLinks =[
-    {
-        title: "Línea 1",
-        path: "/linea-1",
-        icon: <StorageIcon/>
-    },
+const navArrayLinks = [
+    // {
+    //     title: "Línea 1",
+    //     path: "/linea-1",
+    //     icon: <StorageIcon/>
+    // },
     {
 
-        title: "Linea 10", 
+        title: "Linea 10",
         path: "/",
-        icon: <StorageIcon/>
+        icon: <StorageIcon />
     }
 ]
 
-export default function App(){
-    return(
+export default function App() {
+    return (
         <>
-            <Navbar navArrayLinks={ navArrayLinks }/>
-            <Container  sx={{mt:5}}>
+            <Navbar navArrayLinks={navArrayLinks} />
+            <Container sx={{ mt: 5 }}>
                 <Routes>
-                    <Route path="/" element={<Entradas/>}/>
-                    <Route path="/salidas" element={<Salidas/>}/>
-                    <Route path="/almacen" element={<Almacen/>}/>
-                    <Route path="/linea-1" element={<Corte/>}/>
+                    <Route path="/" element={<Entradas />} />
+                    <Route path="/salidas" element={<Salidas />} />
+                    <Route path="/almacen" element={<Almacen />} />
+                    <Route path="/linea-1" element={<Corte />} />
                     {/* <Route path="/login" element={<Login/>}/>
                     <Route path="/register" element={<Register/>}/> */}
                 </Routes>
